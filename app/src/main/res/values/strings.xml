@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TermProject</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_new_flashcard_set">New Flashcard Set</string>
+
+    <string name="menu_flashcard_set">Flashcard Sets</string>
+    <string name="menu_achievement">Achievements/Leaderboard</string>
+    <string name="menu_login">Login</string>
+
+    <string name="title_flashcard_set">Flashcard Sets</string>
+    <string name="title_achievement">Achievements/Leaderboard</string>
+    <string name="title_login">Login</string>
+    <string name="title_create_flashcard">Create Flashcard</string>
+    <string name="title_edit_flashcard">Edit Flashcard</string>
+</resources>
