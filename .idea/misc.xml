@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1358695652173913" />
+        <entry key="app/src/main/res/layout/dialog_achievement.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/dialog_create_flashcard_set.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/flashcard_item.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.1" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.19739583333333333" />
         <entry key="app/src/main/res/menu/main.xml" value="0.19739583333333333" />
