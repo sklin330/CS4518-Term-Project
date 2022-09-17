@@ -7,55 +7,15 @@
 
     <fragment
         android:id="@+id/nav_flashcard_set_list"
-        android:name="com.sklin.termproject.ui.flashcard.FlashcardSetListFragment"
+        android:name="com.sklin.termproject.FlashcardSetListFragment"
         android:label="@string/menu_flashcard_set"
         tools:layout="@layout/fragment_flashcard_set_list" >
-        <action
-            android:id="@+id/action_nav_flashcard_set_list_to_nav_flashcard_list"
-            app:destination="@id/nav_flashcard_list" />
-        <action
-            android:id="@+id/action_nav_flashcard_set_list_to_nav_practice_flashcard"
-            app:destination="@id/nav_practice_flashcard" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_achievement"
-        android:name="com.sklin.termproject.ui.achievement.AchievementFragment"
+        android:name="com.sklin.termproject.AchievementFragment"
         android:label="@string/menu_achievement"
         tools:layout="@layout/fragment_achievement" />
 
-    <fragment
-        android:id="@+id/nav_login"
-        android:name="com.sklin.termproject.ui.login.LoginFragment"
-        android:label="@string/menu_login"
-        tools:layout="@layout/fragment_login" />
-
-    <fragment
-        android:id="@+id/nav_flashcard_list"
-        android:name="com.sklin.termproject.ui.flashcard.FlashcardListFragment"
-        tools:layout="@layout/fragment_flashcard_list" >
-        <action
-            android:id="@+id/action_nav_flashcard_list_to_nav_create_flashcard"
-            app:destination="@id/nav_create_flashcard" />
-        <action
-            android:id="@+id/action_nav_flashcard_list_to_nav_edit_flashcard"
-            app:destination="@id/nav_edit_flashcard" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_create_flashcard"
-        android:name="com.sklin.termproject.ui.flashcard.CreateFlashcardFragment"
-        android:label="@string/title_create_flashcard"
-        tools:layout="@layout/fragment_create_edit_flashcard" />
-
-    <fragment
-        android:id="@+id/nav_edit_flashcard"
-        android:name="com.sklin.termproject.ui.flashcard.EditFlashcardFragment"
-        android:label="@string/title_edit_flashcard"
-        tools:layout="@layout/fragment_create_edit_flashcard" />
-
-    <fragment
-        android:id="@+id/nav_practice_flashcard"
-        android:name="com.sklin.termproject.ui.flashcard.PracticeFlashcardFragment"
-        tools:layout="@layout/fragment_practice_flashcard" />
 </navigation>

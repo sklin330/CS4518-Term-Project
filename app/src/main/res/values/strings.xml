@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">TermProject</string>
+    <string name="empty_string"></string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -16,4 +17,7 @@
     <string name="title_login">Login</string>
     <string name="title_create_flashcard">Create Flashcard</string>
     <string name="title_edit_flashcard">Edit Flashcard</string>
+
+    <string name="add_flashcard_description">Give a title to your flashcard set</string>
+    <string name="create_text">Create</string>
 </resources>
