@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sklin.termproject.adapter.EXTRA_TITLE
+import com.sklin.termproject.adapter.FlashcardAdapter
 import com.sklin.termproject.databinding.ActivityFlashcardListBinding
 import com.sklin.termproject.viewmodel.flashcard.FlashcardListViewModel
 

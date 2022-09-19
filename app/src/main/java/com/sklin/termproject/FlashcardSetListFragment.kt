@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sklin.termproject.adapter.FlashcardSetAdapter
 import com.sklin.termproject.databinding.FragmentFlashcardSetListBinding
 import com.sklin.termproject.viewmodel.flashcard.FlashcardSetListViewModel
 

@@ -1,4 +1,4 @@
-package com.sklin.termproject
+package com.sklin.termproject.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.sklin.termproject.FlashcardListActivity
+import com.sklin.termproject.R
 import com.sklin.termproject.dataclass.FlashcardSet
 
 const val EXTRA_TITLE = "com.sklin.termproject.title"
@@ -35,7 +37,7 @@ class FlashcardSetAdapter (private val data: List<FlashcardSet>, private val con
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.card_flashcard_item, viewGroup, false)
+            .inflate(R.layout.card_flashcard, viewGroup, false)
         return ViewHolder(view)
     }
 

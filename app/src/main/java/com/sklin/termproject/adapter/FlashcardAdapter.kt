@@ -1,4 +1,4 @@
-package com.sklin.termproject
+package com.sklin.termproject.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.sklin.termproject.R
 import com.sklin.termproject.dataclass.Flashcard
 
 class FlashcardAdapter (private val data: List<Flashcard>) :
@@ -27,7 +28,7 @@ class FlashcardAdapter (private val data: List<Flashcard>) :
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.card_flashcard_item, viewGroup, false)
+            .inflate(R.layout.card_flashcard, viewGroup, false)
         return ViewHolder(view)
     }
 
