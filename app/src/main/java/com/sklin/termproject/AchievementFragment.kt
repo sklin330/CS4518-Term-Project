@@ -7,32 +7,66 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.sklin.termproject.adapter.AchievementAdapter
+import com.sklin.termproject.adapter.FlashcardSetAdapter
+import com.sklin.termproject.adapter.UserAdapter
 import com.sklin.termproject.databinding.FragmentAchievementBinding
+import com.sklin.termproject.dataclass.Achievement
 import com.sklin.termproject.viewmodel.achievement.AchievementViewModel
+import com.sklin.termproject.viewmodel.flashcard.FlashcardSetListViewModel
 
 class AchievementFragment : Fragment() {
 
     private var _binding: FragmentAchievementBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
+    private lateinit var viewModel: AchievementViewModel
+    private lateinit var leaderboardRecyclerView: RecyclerView
+    private lateinit var achievementRecyclerView: RecyclerView
+    private lateinit var userAdapter: UserAdapter
+    private lateinit var achievementAdapter: AchievementAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val achievementViewModel =
-            ViewModelProvider(this).get(AchievementViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AchievementViewModel::class.java)
 
         _binding = FragmentAchievementBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textGallery
-        achievementViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        //Set up recycler view for leaderboard
+        leaderboardRecyclerView = binding.leaderboardRecyclerView
+        leaderboardRecyclerView.layoutManager = LinearLayoutManager(activity)
+        userAdapter = UserAdapter(viewModel.getUserList())
+        leaderboardRecyclerView.adapter = userAdapter
+
+        val userLiveData = viewModel.getLiveUserList()
+        userLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                userAdapter = UserAdapter(it)
+                leaderboardRecyclerView.adapter = userAdapter
+            }
         }
+
+        //Set up recycler view for achievements
+        achievementRecyclerView = binding.achievementRecyclerView
+        achievementRecyclerView.layoutManager = GridLayoutManager(activity, 3)
+        achievementAdapter = AchievementAdapter(viewModel.getAchievementList())
+        achievementRecyclerView.adapter = achievementAdapter
+
+        val achievementLiveData = viewModel.getLiveAchievementList()
+        achievementLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                achievementAdapter = AchievementAdapter(it)
+                achievementRecyclerView.adapter = achievementAdapter
+            }
+        }
+
         return root
     }
 

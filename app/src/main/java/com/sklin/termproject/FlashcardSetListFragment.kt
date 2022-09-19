@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sklin.termproject.adapter.FlashcardSetAdapter
@@ -49,7 +51,7 @@ class FlashcardSetListFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main, menu)
+        inflater.inflate(R.menu.flashcard_set, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -61,7 +63,8 @@ class FlashcardSetListFragment : Fragment() {
                 addFlashcardDialog.getWindow()?.setBackgroundDrawableResource(R.drawable.white_card_background)
             };
         }
-        return true
+        return NavigationUI.onNavDestinationSelected(item!!, requireView().findNavController())
+                || super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {

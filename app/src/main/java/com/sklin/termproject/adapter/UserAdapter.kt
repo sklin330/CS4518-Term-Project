@@ -16,11 +16,13 @@ class UserAdapter (private val data: List<User>) :
 
         private val name: TextView = view.findViewById(R.id.username_text)
         private val points: TextView = view.findViewById(R.id.points_text)
+        private val rank: TextView = view.findViewById(R.id.rank_text)
 
-        fun bind(user: User) {
+        fun bind(user: User, position: Int) {
             this.user = user
             name.text = user.username
-            points.text = user.totalPoints.toString()
+            points.text = user.totalPoints.toString() + " points"
+            rank.text = "Rank ${position + 1}"
         }
 
     }
@@ -33,7 +35,7 @@ class UserAdapter (private val data: List<User>) :
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val user = data[position]
-        viewHolder.bind(user)
+        viewHolder.bind(user, position)
     }
 
     override fun getItemCount() = data.size
