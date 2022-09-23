@@ -28,13 +28,13 @@ class FlashcardListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar()?.setDisplayShowHomeEnabled(true);
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        getSupportActionBar()?.setDisplayShowHomeEnabled(true)
 
         viewModel = ViewModelProvider(this).get(FlashcardListViewModel::class.java)
 
         val flashcardTitle = intent.getStringExtra(EXTRA_TITLE)
-        getSupportActionBar()?.setTitle(flashcardTitle);
+        getSupportActionBar()?.setTitle(flashcardTitle)
 
         recyclerView = binding.flashcardRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -52,7 +52,7 @@ class FlashcardListActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
+        menuInflater.inflate(R.menu.flashcard_menu, menu)
         return true
     }
 

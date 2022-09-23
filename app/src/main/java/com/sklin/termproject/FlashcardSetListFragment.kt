@@ -51,7 +51,7 @@ class FlashcardSetListFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.flashcard_set, menu)
+        inflater.inflate(R.menu.flashcard_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

@@ -2,7 +2,6 @@ package com.sklin.termproject
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
+        menuInflater.inflate(R.menu.empty, menu)
         return true
     }
 

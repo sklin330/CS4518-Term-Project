@@ -23,4 +23,10 @@
 
     <string name="leaderboard_title">Leaderboard</string>
     <string name="achievement_title">Achievements</string>
+
+    <string name="term_hint">Term</string>
+    <string name="definition_hint">Definition</string>
+    <string name="audio_desc">Listen to audio on this card</string>
+    <string name="desc_mic">Record audio on this card</string>
+    <string name="submit_edit_card">Submit</string>
 </resources>
