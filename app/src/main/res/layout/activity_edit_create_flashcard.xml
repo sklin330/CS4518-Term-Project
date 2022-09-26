@@ -106,6 +106,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
+                    android:id="@+id/audio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
@@ -114,6 +115,7 @@
                     android:src="@drawable/ic_volume_foreground" />
 
                 <ImageButton
+                    android:id="@+id/record_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -125,13 +127,14 @@
     </androidx.cardview.widget.CardView>
 
     <Button
+        android:id="@+id/submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/flashcard_background"
+        android:text="@string/submit_edit_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2"
-        android:text="@string/submit_edit_card"
-        android:background="@drawable/flashcard_background" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
