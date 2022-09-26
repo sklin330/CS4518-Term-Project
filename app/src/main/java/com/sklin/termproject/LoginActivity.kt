@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        signInButton = binding.signInButton
+        signInButton = binding.signInButton!!
 
         signInButton.setOnClickListener { view: View ->
             Intent(this, MainActivity::class.java).also {
