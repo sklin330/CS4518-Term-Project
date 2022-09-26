@@ -29,18 +29,18 @@
         android:id="@+id/progress_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="13dp"
         android:text="Progress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_width="346dp"
+        android:layout_height="321dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="31dp"
         app:cardBackgroundColor="@color/light_green"
         app:cardCornerRadius="30dp"
@@ -83,12 +83,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="600dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginEnd="200dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/left_button"
