@@ -5,11 +5,15 @@
       <map>
         <entry key="app/src/main/res/drawable/flashcard_background.xml" value="0.1385" />
         <entry key="app/src/main/res/drawable/white_card_background.xml" value="0.142" />
+        <entry key="app/src/main/res/layout-land/activity_edit_create_flashcard.xml" value="0.25220458553791886" />
+        <entry key="app/src/main/res/layout-land/activity_login.xml" value="0.25132275132275134" />
+        <entry key="app/src/main/res/layout-land/activity_practice_flashcard.xml" value="0.25132275132275134" />
         <entry key="app/src/main/res/layout/activity_create_flashcard.xml" value="0.153125" />
+        <entry key="app/src/main/res/layout/activity_edit_create_flashcard.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/activity_flashcard_list.xml" value="0.1109375" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1109375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_practice_flashcard.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_practice_flashcard.xml" value="0.3319473266601563" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/card_achievement.xml" value="0.20199275362318841" />
         <entry key="app/src/main/res/layout/card_flashcard_item.xml" value="0.21893615722656254" />
