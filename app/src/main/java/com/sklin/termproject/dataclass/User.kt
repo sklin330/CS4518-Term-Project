@@ -1,3 +1,3 @@
 package com.sklin.termproject.dataclass
 
-data class User(var id: Int, var username: String, var totalPoints: Int)
+data class User(var id: String? = "", var username: String? = "", var totalPoints: Int? = 0)

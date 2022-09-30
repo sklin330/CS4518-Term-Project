@@ -21,7 +21,7 @@ class FlashcardListViewModel : ViewModel() {
     private fun generateFlashcard(num: Int): List<Flashcard> {
         var list = ArrayList<Flashcard>()
         for (i in 1..num) {
-            var todo = Flashcard(i, "Question $i", "Answer $i")
+            var todo = Flashcard(i.toString(), "Question $i", "Answer $i")
             list.add(todo)
         }
         return list

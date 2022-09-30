@@ -1,6 +1,7 @@
 package com.sklin.termproject
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sklin.termproject.adapter.FlashcardSetAdapter
 import com.sklin.termproject.databinding.FragmentFlashcardSetListBinding
 import com.sklin.termproject.viewmodel.flashcard.FlashcardSetListViewModel
+
+private const val TAG = "FlashcardSetListFragment"
 
 class FlashcardSetListFragment : Fragment() {
 
@@ -36,13 +39,14 @@ class FlashcardSetListFragment : Fragment() {
 
         recyclerView = binding.flashcardSetRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        flashcardSetAdapter = FlashcardSetAdapter(viewModel.getFlashcardList(), context)
+        flashcardSetAdapter = FlashcardSetAdapter(viewModel.getFlashcardSetList(), context)
         recyclerView.adapter = flashcardSetAdapter
 
-        val flashcardLiveData = viewModel.getLiveFlashcardList()
+        val flashcardLiveData = viewModel.getLiveFlashcardSetList()
 
         flashcardLiveData.observe(viewLifecycleOwner) {
             it?.let {
+                Log.d(TAG, "onCreateView")
                 flashcardSetAdapter = FlashcardSetAdapter(it, context)
                 recyclerView.adapter = flashcardSetAdapter
             }
