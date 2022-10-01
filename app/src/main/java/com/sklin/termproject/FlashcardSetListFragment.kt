@@ -1,7 +1,6 @@
 package com.sklin.termproject
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -46,7 +45,6 @@ class FlashcardSetListFragment : Fragment() {
 
         flashcardLiveData.observe(viewLifecycleOwner) {
             it?.let {
-                Log.d(TAG, "onCreateView")
                 flashcardSetAdapter = FlashcardSetAdapter(it, context)
                 recyclerView.adapter = flashcardSetAdapter
             }
@@ -62,9 +60,9 @@ class FlashcardSetListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_add -> context?.let {
-                var addFlashcardDialog =  AddFlashcardDialog()
-                addFlashcardDialog.showDialog(it)
-                addFlashcardDialog.getWindow()?.setBackgroundDrawableResource(R.drawable.white_card_background)
+                var addFlashcardSetDialog =  AddFlashcardSetDialog()
+                addFlashcardSetDialog.showDialog(it)
+                addFlashcardSetDialog.getWindow()?.setBackgroundDrawableResource(R.drawable.white_card_background)
             };
         }
         return NavigationUI.onNavDestinationSelected(item!!, requireView().findNavController())

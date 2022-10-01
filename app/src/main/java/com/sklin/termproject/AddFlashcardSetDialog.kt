@@ -10,7 +10,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.sklin.termproject.dataclass.FlashcardSet
 
-class AddFlashcardDialog {
+class AddFlashcardSetDialog {
 
     private lateinit var dialog: Dialog
     private lateinit var mContext: Context
@@ -28,19 +28,22 @@ class AddFlashcardDialog {
         var titleEditTextView: TextView = dialog.findViewById(R.id.flashcard_set_title_edit_text)
 
         createButton.setOnClickListener { view: View ->
-            val firebaseDatabase = Firebase.database
-            val databaseReference = firebaseDatabase.reference
-            val id = databaseReference.push().key ?: ""
+            if (titleEditTextView.text.isNotEmpty()) {
+                val firebaseDatabase = Firebase.database
+                val databaseReference = firebaseDatabase.reference
+                val id = databaseReference.push().key ?: ""
 
-            val title = titleEditTextView.text.toString()
-            val newFlashcardSet = FlashcardSet(id, title)
+                val title = titleEditTextView.text.toString()
+                val newFlashcardSet = FlashcardSet(id, title)
 
-            //TODO: Retrieve User ID
-            val userid = "1"
+                //TODO: Retrieve User ID
+                val userid = "1"
 
-            databaseReference.child("FlashcardSet").child(userid).child(id).setValue(newFlashcardSet)
+                databaseReference.child("FlashcardSet").child(userid).child(id)
+                    .setValue(newFlashcardSet)
 
-            dialog.dismiss()
+                dialog.dismiss()
+            }
         }
 
         dialog.show()
