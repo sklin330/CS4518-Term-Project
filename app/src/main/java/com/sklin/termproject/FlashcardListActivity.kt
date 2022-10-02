@@ -8,10 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.sklin.termproject.adapter.EXTRA_ID
 import com.sklin.termproject.adapter.EXTRA_TITLE
 import com.sklin.termproject.adapter.FlashcardAdapter
 import com.sklin.termproject.databinding.ActivityFlashcardListBinding
+import com.sklin.termproject.dataclass.Flashcard
+import com.sklin.termproject.dataclass.FlashcardSet
 import com.sklin.termproject.viewmodel.flashcard.FlashcardListViewModel
+
+const val REQUEST_CODE_CREATE = 2
 
 class FlashcardListActivity : AppCompatActivity() {
 
@@ -28,13 +35,16 @@ class FlashcardListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        getSupportActionBar()?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         viewModel = ViewModelProvider(this).get(FlashcardListViewModel::class.java)
 
-        val flashcardTitle = intent.getStringExtra(EXTRA_TITLE)
-        getSupportActionBar()?.setTitle(flashcardTitle)
+        val flashcardSetTitle = intent.getStringExtra(EXTRA_TITLE)
+        supportActionBar?.title = flashcardSetTitle
+
+        val flashcardSetID = intent.getStringExtra(EXTRA_ID) ?: ""
+        viewModel.setFlashcardSetId(flashcardSetID)
 
         recyclerView = binding.flashcardRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -60,11 +70,26 @@ class FlashcardListActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.action_add -> {
                 val intent = Intent(this, CreateFlashcardActivity::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, REQUEST_CODE_CREATE)
             }
             android.R.id.home -> { finish() }
         }
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_CREATED) {
+            var front = data?.getStringExtra(EXTRA_FRONT)
+            var back = data?.getStringExtra(EXTRA_BACK)
+
+            if (front != null && back != null) {
+                viewModel.persistFlashcard(front, back)
+            }
+            return
+        }
+        return
     }
 
 }

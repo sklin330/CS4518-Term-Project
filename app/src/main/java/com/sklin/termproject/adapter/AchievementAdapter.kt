@@ -22,7 +22,7 @@ class AchievementAdapter (private val data: List<Achievement>) :
             this.achievement = achievement
             name.text = achievement.name
 
-            image.alpha = if (achievement.isAchieved) 1.0f else 0.3f
+            image.alpha = if (achievement.isAchieved == true) 1.0f else 0.3f
         }
 
     }

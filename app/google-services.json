@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "788428292842",
+    "project_id": "flashcards-to-go",
+    "storage_bucket": "flashcards-to-go.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788428292842:android:a2a6e6405ac858b0d14d93",
+        "android_client_info": {
+          "package_name": "com.sklin.termproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788428292842-87k123udn0u6p3mnvtrfkn9nuh6cvt4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sklin.termproject",
+            "certificate_hash": "2cff896aa19f6ce241ea5e07b29ede82ae5384c0"
+          }
+        },
+        {
+          "client_id": "788428292842-n4rgu7mvuk1mimol0o5ha4i04vvto7r4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB1-tkF6sZK3uL2zPkuN_yLVazhO6fk6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788428292842-n4rgu7mvuk1mimol0o5ha4i04vvto7r4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

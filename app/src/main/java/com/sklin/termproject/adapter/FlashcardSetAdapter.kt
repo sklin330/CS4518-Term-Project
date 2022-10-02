@@ -12,7 +12,8 @@ import com.sklin.termproject.FlashcardListActivity
 import com.sklin.termproject.R
 import com.sklin.termproject.dataclass.FlashcardSet
 
-const val EXTRA_TITLE = "com.sklin.termproject.title"
+const val EXTRA_TITLE = "com.sklin.termproject.flashcard_set_title"
+const val EXTRA_ID = "com.sklin.termproject.flashcard_set_id"
 
 class FlashcardSetAdapter (private val data: List<FlashcardSet>, private val context: Context?) :
     RecyclerView.Adapter<FlashcardSetAdapter.ViewHolder>() {
@@ -26,9 +27,10 @@ class FlashcardSetAdapter (private val data: List<FlashcardSet>, private val con
         fun bind(flashcardSet: FlashcardSet, context: Context?) {
             this.flashcardSet = flashcardSet
             title.text = this.flashcardSet.title
-            card.setOnClickListener { view: View ->
+            card.setOnClickListener {
                 val intent = Intent(context, FlashcardListActivity::class.java)
                 intent.putExtra(EXTRA_TITLE, title.text)
+                intent.putExtra(EXTRA_ID, flashcardSet.id)
                 context?.startActivity(intent);
             }
         }
