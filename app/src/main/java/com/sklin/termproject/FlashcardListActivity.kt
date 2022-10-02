@@ -85,22 +85,11 @@ class FlashcardListActivity : AppCompatActivity() {
             var back = data?.getStringExtra(EXTRA_BACK)
 
             if (front != null && back != null) {
-                persistFlashcard(front, back)
+                viewModel.persistFlashcard(front, back)
             }
             return
         }
         return
-    }
-
-    private fun persistFlashcard(front: String, back: String) {
-        val firebaseDatabase = Firebase.database
-        val databaseReference = firebaseDatabase.reference
-        val id = databaseReference.push().key ?: ""
-
-        val newFlashcard = Flashcard(id, front, back)
-
-        databaseReference.child("Flashcard").child(viewModel.getFlashcardSetId()).child(id)
-            .setValue(newFlashcard)
     }
 
 }
