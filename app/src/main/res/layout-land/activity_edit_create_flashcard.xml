@@ -52,7 +52,7 @@
                 android:background="@drawable/text_background">
 
                 <EditText
-                    android:id="@+id/term_text"
+                    android:id="@+id/front_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
@@ -82,7 +82,7 @@
                 android:background="@drawable/text_background">
 
                 <EditText
-                    android:id="@+id/definition_text"
+                    android:id="@+id/back_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"

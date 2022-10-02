@@ -12,6 +12,8 @@ import com.sklin.termproject.adapter.FlashcardSetAdapter
 import com.sklin.termproject.databinding.FragmentFlashcardSetListBinding
 import com.sklin.termproject.viewmodel.flashcard.FlashcardSetListViewModel
 
+private const val TAG = "FlashcardSetListFragment"
+
 class FlashcardSetListFragment : Fragment() {
 
     private var _binding: FragmentFlashcardSetListBinding? = null
@@ -36,10 +38,10 @@ class FlashcardSetListFragment : Fragment() {
 
         recyclerView = binding.flashcardSetRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        flashcardSetAdapter = FlashcardSetAdapter(viewModel.getFlashcardList(), context)
+        flashcardSetAdapter = FlashcardSetAdapter(viewModel.getFlashcardSetList(), context)
         recyclerView.adapter = flashcardSetAdapter
 
-        val flashcardLiveData = viewModel.getLiveFlashcardList()
+        val flashcardLiveData = viewModel.getLiveFlashcardSetList()
 
         flashcardLiveData.observe(viewLifecycleOwner) {
             it?.let {
@@ -58,9 +60,9 @@ class FlashcardSetListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_add -> context?.let {
-                var addFlashcardDialog =  AddFlashcardDialog()
-                addFlashcardDialog.showDialog(it)
-                addFlashcardDialog.getWindow()?.setBackgroundDrawableResource(R.drawable.white_card_background)
+                var addFlashcardSetDialog =  AddFlashcardSetDialog()
+                addFlashcardSetDialog.showDialog(it)
+                addFlashcardSetDialog.getWindow()?.setBackgroundDrawableResource(R.drawable.white_card_background)
             };
         }
         return NavigationUI.onNavDestinationSelected(item!!, requireView().findNavController())

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.Window
 import android.widget.Button
 
-class AddFlashcardDialog {
+class EditDeleteFlashcardSetDialog {
 
     private lateinit var dialog: Dialog
     private lateinit var mContext: Context
@@ -17,13 +17,18 @@ class AddFlashcardDialog {
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
-        dialog.setContentView(R.layout.dialog_add_flashcard_set)
+        dialog.setContentView(R.layout.dialog_edit_delete_menu)
         dialog.setCanceledOnTouchOutside(true)
 
-        var createButton: Button = dialog.findViewById(R.id.create_button)
+        var editButton: Button = dialog.findViewById(R.id.edit_button)
+        var deleteButton: Button = dialog.findViewById(R.id.delete_button)
 
-        createButton.setOnClickListener { view: View ->
-            dialog.dismiss()
+        editButton.setOnClickListener { view: View ->
+
+        }
+
+        deleteButton.setOnClickListener { view: View ->
+
         }
 
         dialog.show()
@@ -32,5 +37,4 @@ class AddFlashcardDialog {
     fun getWindow(): Window? {
         return dialog.window
     }
-
 }

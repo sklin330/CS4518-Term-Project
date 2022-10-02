@@ -4,11 +4,13 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
+import android.app.Activity
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.sklin.termproject.databinding.ActivityEditCreateFlashcardBinding
@@ -16,6 +18,10 @@ import com.sklin.termproject.viewmodel.flashcard.CreateFlashcardViewModel
 import java.io.File
 import java.io.IOException
 
+
+const val RESULT_CREATED = 3
+const val EXTRA_FRONT = "com.sklin.termproject.flashcard_front"
+const val EXTRA_BACK = "com.sklin.termproject.flashcard_back"
 
 class CreateFlashcardActivity : AppCompatActivity() {
 
@@ -34,9 +40,9 @@ class CreateFlashcardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        getSupportActionBar()?.setDisplayShowHomeEnabled(true)
-        getSupportActionBar()?.setTitle("Create Flashcard")
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = "Create Flashcard"
 
         viewModel = ViewModelProvider(this).get(CreateFlashcardViewModel::class.java)
 
@@ -106,6 +112,17 @@ class CreateFlashcardActivity : AppCompatActivity() {
                 mediaPlayer.release()
             }
 
+        }
+
+        binding.submitButton.setOnClickListener {
+            if (binding.frontTextView.text.isNotEmpty() && binding.backTextView.text.isNotEmpty()) {
+                val data = Intent().apply {
+                    putExtra(EXTRA_FRONT, binding.frontTextView.text.toString())
+                    putExtra(EXTRA_BACK, binding.backTextView.text.toString())
+                }
+                setResult(RESULT_CREATED, data)
+                finish()
+            }
         }
     }
 
