@@ -83,9 +83,10 @@ class FlashcardListActivity : AppCompatActivity() {
         if (resultCode == RESULT_CREATED) {
             var front = data?.getStringExtra(EXTRA_FRONT)
             var back = data?.getStringExtra(EXTRA_BACK)
+            var audioPath = data?.getStringExtra(EXTRA_AUDIO_PATH) ?: ""
 
             if (front != null && back != null) {
-                viewModel.persistFlashcard(front, back)
+                viewModel.persistFlashcard(front, back, audioPath)
             }
             return
         }

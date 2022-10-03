@@ -1,17 +1,19 @@
 package com.sklin.termproject
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
-import android.app.Activity
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.sklin.termproject.databinding.ActivityEditCreateFlashcardBinding
 import com.sklin.termproject.viewmodel.flashcard.CreateFlashcardViewModel
@@ -22,10 +24,11 @@ import java.io.IOException
 const val RESULT_CREATED = 3
 const val EXTRA_FRONT = "com.sklin.termproject.flashcard_front"
 const val EXTRA_BACK = "com.sklin.termproject.flashcard_back"
+const val EXTRA_AUDIO_PATH = "com.sklin.termproject.flashcard_audio_path"
 
 class CreateFlashcardActivity : AppCompatActivity() {
 
-    private var audioPath: String? = null
+    private var audioFilePath: String? = null
     private var recorder = MediaRecorder()
     private var mediaPlayer = MediaPlayer()
     private var recording = true
@@ -46,28 +49,43 @@ class CreateFlashcardActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(CreateFlashcardViewModel::class.java)
 
+        binding.frontTextView.setText(viewModel.getFront())
+        binding.frontTextView.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.setFront(binding.frontTextView.toString())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        binding.backTextView.setText(viewModel.getBack())
+        binding.backTextView.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.setBack(binding.backTextView.toString())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        audioFilePath = viewModel.getAudioPath()
+
+        val audioDirectory = File(applicationContext.filesDir, "audio")
+        if (!audioDirectory.exists()) {
+            audioDirectory.mkdir()
+        }
+
         binding.recordButton.setOnClickListener{
-
             if(recording && checkPermissions()) {
+                val audioID = "" + ".mp3"
 
-                val file =
-                    File(Environment.getExternalStorageDirectory().absolutePath)
-
-                val fileOut = File(file, "audio.mp3")
-                if (!fileOut.exists()) {
-                    fileOut.mkdir()
-                }
-                audioPath = fileOut.path
+                val audioFile = File(audioDirectory, audioID)
+                audioFilePath = audioFile.path
 
                 recorder = MediaRecorder()
-
                 recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-                //sets output to mp3 format
                 recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
                 recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-
-                recorder.setOutputFile(audioPath)
-
+                recorder.setOutputFile(audioFilePath)
 
                 try {
                     recorder.prepare()
@@ -78,38 +96,33 @@ class CreateFlashcardActivity : AppCompatActivity() {
                 }
 
                 recording = false
-            }
-
-            else if(recording && !checkPermissions()){
+            } else if(recording && !checkPermissions()){
                 ActivityCompat.requestPermissions(
                     this, arrayOf(
                         Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE
                     ), 1
                 )
-            }
-
-            else{
+            } else{
                 recorder.stop()
                 recorder.release()
-
+                viewModel.setAudioPath(audioFilePath!!)
                 recording = true
             }
 
         }
 
         binding.audioButton.setOnClickListener{
-
             if(listening){
                 mediaPlayer = MediaPlayer()
-                mediaPlayer.setDataSource(audioPath)
+                mediaPlayer.setDataSource(audioFilePath)
                 mediaPlayer.prepare()
                 mediaPlayer.start()
 
                 listening = false
-            }
-            else{
+            } else{
                 mediaPlayer.stop()
                 mediaPlayer.release()
+                listening = true
             }
 
         }
@@ -119,6 +132,9 @@ class CreateFlashcardActivity : AppCompatActivity() {
                 val data = Intent().apply {
                     putExtra(EXTRA_FRONT, binding.frontTextView.text.toString())
                     putExtra(EXTRA_BACK, binding.backTextView.text.toString())
+                    if(audioFilePath != null) {
+                        putExtra(EXTRA_AUDIO_PATH, audioFilePath)
+                    }
                 }
                 setResult(RESULT_CREATED, data)
                 finish()
