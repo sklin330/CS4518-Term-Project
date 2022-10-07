@@ -87,12 +87,7 @@ class AchievementSource private constructor(
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val userRes = dataSnapshot.getValue<User>()
-                if (userRes != null) {
-                    user = userRes
-                } else {
-                    user = User(userId, "USERNAME")
-                }
+                user = dataSnapshot.getValue<User>() ?: User(userId, "USERNAME")
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.d(TAG, "fetchUserStats:onCancelled", databaseError.toException())
@@ -125,7 +120,7 @@ class AchievementSource private constructor(
         }
     }
 
-    fun updateAchievements() {
+    private fun updateAchievements() {
         val currAchievementMap = achievementLiveMap.value
 
         if (currAchievementMap != null) {
@@ -144,7 +139,7 @@ class AchievementSource private constructor(
         user.id?.let { firebaseDatabase.getReference("Achievements").child(it).setValue(currAchievementMap) }
     }
 
-    fun updateStats() {
+    private fun updateStats() {
         val firebaseDatabase = Firebase.database
 
         //TODO: how to get username of user

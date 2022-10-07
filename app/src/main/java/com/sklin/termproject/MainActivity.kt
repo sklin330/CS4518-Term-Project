@@ -1,7 +1,9 @@
 package com.sklin.termproject
 
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import androidx.annotation.RequiresApi
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,15 +22,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var achievementSource: AchievementSource
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        AchievementSource.initialize(this)
-
         achievementSource = AchievementSource.getDataSource()
+        achievementSource.checkLogin()
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
