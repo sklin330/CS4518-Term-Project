@@ -1,10 +1,12 @@
 package com.sklin.termproject.adapter
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.sklin.termproject.R
 import com.sklin.termproject.dataclass.Achievement
@@ -34,9 +36,10 @@ class AchievementAdapter (private val data: List<Achievement>, private val achie
         return ViewHolder(view)
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val achievement = data[position]
-        val isAchieved: Boolean = achievementMap.getOrDefault(achievement.id, false)
+        val isAchieved: Boolean = achievementMap.getOrDefault("achievement_" + achievement.id, false)
         viewHolder.bind(achievement, isAchieved)
     }
 

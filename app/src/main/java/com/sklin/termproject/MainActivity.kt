@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sklin.termproject.databinding.ActivityMainBinding
 import com.sklin.termproject.viewmodel.achievement.AchievementSource
 
+private const val TAG = "MainActivity"
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -29,8 +31,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        achievementSource = AchievementSource.getDataSource()
-        achievementSource.checkLogin()
+        //TODO get user id here
+        var userId = "1"
+        AchievementSource.initialize(this, userId)
 
         setSupportActionBar(binding.appBarMain.toolbar)
 

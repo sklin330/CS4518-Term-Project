@@ -1,9 +1,11 @@
 package com.sklin.termproject
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,6 +30,7 @@ class AchievementFragment : Fragment() {
 
     private lateinit var achievementSource: AchievementSource
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,7 +41,9 @@ class AchievementFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(AchievementViewModel::class.java)
 
+        val userid = "1"
         achievementSource = AchievementSource.getDataSource()
+        achievementSource.setUserId(userid)
 
         //Set up recycler view for leaderboard
         leaderboardRecyclerView = binding.leaderboardRecyclerView
@@ -66,6 +71,14 @@ class AchievementFragment : Fragment() {
             it?.let {
                 achievementAdapter = AchievementAdapter(achievementSource.getAchievementList(), it)
                 achievementRecyclerView.adapter = achievementAdapter
+            }
+        }
+
+        var userData = achievementSource.getLiveUserData()
+
+        userData.observe(viewLifecycleOwner) {
+            it?.let {
+                achievementSource.checkLogin()
             }
         }
 
