@@ -8,8 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sklin.termproject.R
 import com.sklin.termproject.dataclass.Achievement
+import java.util.HashMap
 
-class AchievementAdapter (private val data: List<Achievement>) :
+class AchievementAdapter (private val data: List<Achievement>, private val achievementMap: HashMap<String, Boolean>) :
     RecyclerView.Adapter<AchievementAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -18,11 +19,11 @@ class AchievementAdapter (private val data: List<Achievement>) :
         private val name: TextView = view.findViewById(R.id.achievment_name_text)
         private val image: ImageView = view.findViewById(R.id.achievement_image)
 
-        fun bind(achievement: Achievement) {
+        fun bind(achievement: Achievement, isAchieved: Boolean) {
             this.achievement = achievement
             name.text = achievement.name
 
-            image.alpha = if (achievement.isAchieved == true) 1.0f else 0.3f
+            image.alpha = if (isAchieved) 1.0f else 0.3f
         }
 
     }
@@ -35,7 +36,8 @@ class AchievementAdapter (private val data: List<Achievement>) :
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val achievement = data[position]
-        viewHolder.bind(achievement)
+        val isAchieved: Boolean = achievementMap.getOrDefault(achievement.id, false)
+        viewHolder.bind(achievement, isAchieved)
     }
 
     override fun getItemCount() = data.size

@@ -4,19 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sklin.termproject.adapter.AchievementAdapter
-import com.sklin.termproject.adapter.FlashcardSetAdapter
 import com.sklin.termproject.adapter.UserAdapter
 import com.sklin.termproject.databinding.FragmentAchievementBinding
-import com.sklin.termproject.dataclass.Achievement
+import com.sklin.termproject.viewmodel.achievement.AchievementSource
 import com.sklin.termproject.viewmodel.achievement.AchievementViewModel
-import com.sklin.termproject.viewmodel.flashcard.FlashcardSetListViewModel
 
 class AchievementFragment : Fragment() {
 
@@ -29,15 +26,19 @@ class AchievementFragment : Fragment() {
     private lateinit var userAdapter: UserAdapter
     private lateinit var achievementAdapter: AchievementAdapter
 
+    private lateinit var achievementSource: AchievementSource
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this).get(AchievementViewModel::class.java)
-
         _binding = FragmentAchievementBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        viewModel = ViewModelProvider(this).get(AchievementViewModel::class.java)
+
+        achievementSource = AchievementSource.getDataSource()
 
         //Set up recycler view for leaderboard
         leaderboardRecyclerView = binding.leaderboardRecyclerView
@@ -56,13 +57,14 @@ class AchievementFragment : Fragment() {
         //Set up recycler view for achievements
         achievementRecyclerView = binding.achievementRecyclerView
         achievementRecyclerView.layoutManager = GridLayoutManager(activity, 3)
-        achievementAdapter = AchievementAdapter(viewModel.getAchievementList())
-        achievementRecyclerView.adapter = achievementAdapter
+//        achievementAdapter = AchievementAdapter(achievementSource.getAchievementList(), )
+//        achievementRecyclerView.adapter = achievementAdapter
 
-        val achievementLiveData = viewModel.getLiveAchievementList()
+        val achievementLiveData = achievementSource.getLiveAchievementMap()
+
         achievementLiveData.observe(viewLifecycleOwner) {
             it?.let {
-                achievementAdapter = AchievementAdapter(it)
+                achievementAdapter = AchievementAdapter(achievementSource.getAchievementList(), it)
                 achievementRecyclerView.adapter = achievementAdapter
             }
         }
