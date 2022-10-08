@@ -1,8 +1,10 @@
 package com.sklin.termproject
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.*
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -12,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sklin.termproject.adapter.FlashcardSetAdapter
 import com.sklin.termproject.databinding.FragmentFlashcardSetListBinding
 import com.sklin.termproject.viewmodel.flashcard.FlashcardSetListViewModel
-
 
 private const val TAG = "FlashcardSetListFragment"
 
@@ -59,6 +60,7 @@ class FlashcardSetListFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_add -> context?.let {

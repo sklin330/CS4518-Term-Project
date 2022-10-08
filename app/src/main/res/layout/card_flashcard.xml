@@ -25,6 +25,7 @@
             android:layout_weight="10"
             android:ellipsize="end"
             android:lines="1"
+            android:textColor="@color/app_black"
             android:textSize="20sp"
             android:textStyle="bold"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " />

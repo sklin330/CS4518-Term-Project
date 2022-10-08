@@ -16,7 +16,7 @@
         android:fontFamily="sans-serif"
         android:gravity="center_horizontal"
         android:text="@string/add_flashcard_description"
-        android:textColor="@android:color/black"
+        android:textColor="@color/app_black"
         android:textSize="20sp" />
 
     <EditText
@@ -24,15 +24,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:background="@color/light_gray"
         android:ems="10"
         android:hint="Title"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="@color/app_black"
+        android:textColorHint="@color/app_black_hint" />
 
     <Button
         android:id="@+id/create_button"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:text="@string/create_text" />
+        android:text="@string/create_text"
+        android:textColor="@color/white" />
 
 </LinearLayout>
 

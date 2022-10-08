@@ -58,14 +58,22 @@ class FlashcardListViewModel : ViewModel() {
         databaseReference.addValueEventListener(postListener)
     }
 
-    fun persistFlashcard(front: String, back: String, audioPath: String) {
+    fun persistFlashcard(id: String? = "", front: String, back: String, audioPath: String) {
         val firebaseDatabase = Firebase.database
         val databaseReference = firebaseDatabase.reference
-        val id = databaseReference.push().key ?: ""
+        var newID = ""
+        if(id.equals("")) {
+            newID = databaseReference.push().key ?: ""
+        } else {
+            if (id != null) {
+                newID = id
+            }
+        }
 
-        val newFlashcard = Flashcard(id, front, back, audioPath)
+        Log.d(TAG, "flashcardID -> $newID")
+        val newFlashcard = Flashcard(newID, front, back, audioPath)
 
-        databaseReference.child("Flashcard").child(flashcardSetId).child(id)
+        databaseReference.child("Flashcard").child(flashcardSetId).child(newID)
             .setValue(newFlashcard)
     }
 }

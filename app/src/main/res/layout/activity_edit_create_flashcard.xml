@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_background"
     tools:context=".EditFlashcardActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -28,7 +29,7 @@
         android:id="@+id/practice_flashcard"
         android:layout_width="350dp"
         android:layout_height="350dp"
-        app:cardBackgroundColor="@color/light_green"
+        app:cardBackgroundColor="@color/primary_light"
         app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +64,9 @@
                     android:autofillHints="term"
                     android:background="#EAEAEA"
                     android:hint="@string/term_hint"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textColor="@color/app_black"
+                    android:textColorHint="@color/app_black_hint" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <View
@@ -95,7 +98,9 @@
                     android:autofillHints="definition"
                     android:background="#EAEAEA"
                     android:hint="@string/definition_hint"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textColor="@color/app_black"
+                    android:textColorHint="@color/app_black_hint" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <LinearLayout
@@ -110,7 +115,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:background="@color/light_green"
+                    android:alpha="0.3"
+                    android:background="@color/primary_light"
+                    android:clickable="false"
                     android:contentDescription="@string/audio_desc"
                     android:src="@drawable/ic_volume_foreground" />
 
@@ -119,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:background="@color/light_green"
+                    android:background="@color/primary_light"
                     android:contentDescription="@string/desc_mic"
                     android:src="@drawable/ic_mic_foreground" />
             </LinearLayout>
@@ -132,6 +139,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/flashcard_background"
         android:text="@string/submit_edit_card"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

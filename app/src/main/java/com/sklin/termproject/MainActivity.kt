@@ -1,7 +1,9 @@
 package com.sklin.termproject
 
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import androidx.annotation.RequiresApi
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,17 +13,30 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.sklin.termproject.databinding.ActivityMainBinding
+import com.sklin.termproject.viewmodel.achievement.AchievementSource
+
+private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var achievementSource: AchievementSource
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //TODO get user id and username here
+        var userId = "1"
+        AchievementSource.initialize(this, userId)
+        achievementSource = AchievementSource.getDataSource()
+        achievementSource.fetchAchievements()
+        achievementSource.fetchUserStats()
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
@@ -31,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_flashcard_set_list, R.id.nav_achievement
+                R.id.nav_flashcard_set_list, R.id.nav_achievement, R.id.nav_settings
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
