@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.sklin.termproject.adapter.EXTRA_SET_ID
 import com.sklin.termproject.adapter.FlashcardSetAdapter
 import com.sklin.termproject.databinding.ActivityPracticeFlashcardBinding
 import com.sklin.termproject.dataclass.Flashcard
@@ -28,7 +29,7 @@ class PracticeFlashcardActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(PracticeFlashcardViewModel::class.java)
 
-        val flashcardSet = intent.getSerializableExtra("flashcardSet") as? FlashcardSet
+        val flashcardSet = intent.getSerializableExtra(EXTRA_SET_ID) as? FlashcardSet
         if (flashcardSet != null) {
             flashcardSet.id?.let { viewModel.setFlashcardSetId(it) }
 

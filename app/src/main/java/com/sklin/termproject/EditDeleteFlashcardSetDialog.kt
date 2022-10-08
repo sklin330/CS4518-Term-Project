@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.View
 import android.view.Window
 import android.widget.Button
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.sklin.termproject.adapter.EXTRA_SET_ID
@@ -17,7 +18,7 @@ class EditDeleteFlashcardSetDialog {
     private lateinit var dialog: Dialog
     private lateinit var mContext: Context
 
-    fun showDialog(context: Context, title: String, flashcardSetId: Int) {
+    fun showDialog(context: Context, title: String, flashcardSetId: String) {
         dialog = Dialog(context)
         mContext = context
 
@@ -31,22 +32,25 @@ class EditDeleteFlashcardSetDialog {
         var deleteButton: Button = dialog.findViewById(R.id.delete_button)
 
         practiceButton.setOnClickListener {
-            //Navigate to practice flashcards
+            val intent = Intent(context, PracticeFlashcardActivity::class.java)
+            intent.putExtra(EXTRA_SET_ID, flashcardSetId)
+            context?.startActivity(intent)
         }
 
         editButton.setOnClickListener {
             val intent = Intent(context, FlashcardListActivity::class.java)
             intent.putExtra(EXTRA_TITLE, title)
             intent.putExtra(EXTRA_SET_ID, flashcardSetId)
-            context?.startActivity(intent);
+            context?.startActivity(intent)
         }
 
         deleteButton.setOnClickListener {
-            //TODO: Retrieve User ID
-            val userid = "1"
+            val userid = Firebase.auth.currentUser?.uid
             val firebaseDatabase = Firebase.database
-            firebaseDatabase.getReference("FlashcardSet")
+            if (userid != null) {
+                firebaseDatabase.getReference("FlashcardSet")
                     .child(userid).removeValue()
+            }
             dialog.dismiss()
         }
 

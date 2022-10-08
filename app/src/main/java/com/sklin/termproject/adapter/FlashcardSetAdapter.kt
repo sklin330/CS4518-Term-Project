@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.sklin.termproject.FlashcardListActivity
-import com.sklin.termproject.PracticeFlashcardActivity
-import com.sklin.termproject.R
+import com.sklin.termproject.*
 import com.sklin.termproject.dataclass.FlashcardSet
 
 const val EXTRA_TITLE = "com.sklin.termproject.flashcard_set_title"
@@ -29,10 +27,13 @@ class FlashcardSetAdapter (private val data: List<FlashcardSet>, private val con
             this.flashcardSet = flashcardSet
             title.text = this.flashcardSet.title
             card.setOnClickListener {
-                val intent = Intent(context, FlashcardListActivity::class.java)
-                intent.putExtra(EXTRA_TITLE, title.text)
-                intent.putExtra(EXTRA_SET_ID, flashcardSet.id)
-                context?.startActivity(intent);
+                var editDeleteFlashcardSetDialog =  EditDeleteFlashcardSetDialog()
+                if (context != null && flashcardSet != null) {
+                    editDeleteFlashcardSetDialog.showDialog(context, flashcardSet.title.toString(),
+                        flashcardSet.id.toString()
+                    )
+                }
+                editDeleteFlashcardSetDialog.getWindow()?.setBackgroundDrawableResource(R.drawable.white_card_background)
             }
         }
 
