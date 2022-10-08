@@ -2,23 +2,21 @@ package com.sklin.termproject
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import com.sklin.termproject.adapter.EXTRA_ID
+import com.sklin.termproject.adapter.EXTRA_SET_ID
 import com.sklin.termproject.adapter.EXTRA_TITLE
 import com.sklin.termproject.adapter.FlashcardAdapter
 import com.sklin.termproject.databinding.ActivityFlashcardListBinding
-import com.sklin.termproject.dataclass.Flashcard
-import com.sklin.termproject.dataclass.FlashcardSet
 import com.sklin.termproject.viewmodel.flashcard.FlashcardListViewModel
 
 const val REQUEST_CODE_CREATE = 2
+private const val TAG = "FlashcardListActivity"
 
 class FlashcardListActivity : AppCompatActivity() {
 
@@ -40,22 +38,31 @@ class FlashcardListActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(FlashcardListViewModel::class.java)
 
-        val flashcardSetTitle = intent.getStringExtra(EXTRA_TITLE)
+        val flashcardSetTitle = intent.getStringExtra(EXTRA_TITLE) ?: ""
         supportActionBar?.title = flashcardSetTitle
 
-        val flashcardSetID = intent.getStringExtra(EXTRA_ID) ?: ""
+        val flashcardSetID = intent.getStringExtra(EXTRA_SET_ID) ?: ""
         viewModel.setFlashcardSetId(flashcardSetID)
+
+        if (intent.hasExtra(EXTRA_FLASHCARD_ID)) {
+            val flashcardID = intent.getStringExtra(EXTRA_FLASHCARD_ID)
+            Log.d(TAG, "flashcardID -> $flashcardID")
+            val front = intent.getStringExtra(EXTRA_FRONT) ?: ""
+            val back = intent.getStringExtra(EXTRA_BACK) ?: ""
+            val audioPath = intent.getStringExtra(EXTRA_AUDIO_PATH) ?: ""
+            viewModel.persistFlashcard(flashcardID, front, back, audioPath)
+        }
 
         recyclerView = binding.flashcardRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-        flashcardAdapter = FlashcardAdapter(viewModel.getFlashcardList())
+        flashcardAdapter = FlashcardAdapter(viewModel.getFlashcardList(), flashcardSetID, flashcardSetTitle, this)
         recyclerView.adapter = flashcardAdapter
 
         val flashcardLiveData = viewModel.getLiveFlashcardList()
 
         flashcardLiveData.observe(this) {
             it?.let {
-                flashcardAdapter = FlashcardAdapter(it)
+                flashcardAdapter = FlashcardAdapter(it, flashcardSetID, flashcardSetTitle, this)
                 recyclerView.adapter = flashcardAdapter
             }
         }
@@ -86,7 +93,7 @@ class FlashcardListActivity : AppCompatActivity() {
             var audioPath = data?.getStringExtra(EXTRA_AUDIO_PATH) ?: ""
 
             if (front != null && back != null) {
-                viewModel.persistFlashcard(front, back, audioPath)
+                viewModel.persistFlashcard("", front, back, audioPath)
             }
             return
         }
