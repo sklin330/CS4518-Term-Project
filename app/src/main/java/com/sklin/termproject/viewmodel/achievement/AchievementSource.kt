@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -47,7 +48,7 @@ class AchievementSource private constructor(
         Achievement("5", "Create 5 Flashcard Sets", "Create 5 flashcard sets!", 15, 5),
         Achievement("6", "Create 1 Flashcard", "Create a flashcard!", 10, 1),
         Achievement("7", "Create 5 Flashcards", "Create 5 flashcards!", 15, 5),
-        Achievement("8", "Practice 10 Flashcards", "Practice flashcards 10 times!", 10, 10),
+        Achievement("8", "Practice a Flashcard Set", "Practice a flashcard set!", 10, 1),
     )
 
     init {
@@ -104,7 +105,9 @@ class AchievementSource private constructor(
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val user = dataSnapshot.getValue<User>() ?: User(userId, "Guest")
+                val user = dataSnapshot.getValue<User>() ?: User(userId,
+                    Firebase.auth.currentUser?.displayName
+                )
                 Log.d(TAG, "fetchUserStats -> $user")
                 username = user.username.toString()
                 lastLoggedIn = user.lastLoggedInDate.toString()

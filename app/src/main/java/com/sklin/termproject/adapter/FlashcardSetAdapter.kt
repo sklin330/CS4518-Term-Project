@@ -29,9 +29,7 @@ class FlashcardSetAdapter (private val data: List<FlashcardSet>, private val con
             card.setOnClickListener {
                 var editDeleteFlashcardSetDialog =  EditDeleteFlashcardSetDialog()
                 if (context != null && flashcardSet != null) {
-                    editDeleteFlashcardSetDialog.showDialog(context, flashcardSet.title.toString(),
-                        flashcardSet.id.toString()
-                    )
+                    editDeleteFlashcardSetDialog.showDialog(context, flashcardSet)
                 }
                 editDeleteFlashcardSetDialog.getWindow()?.setBackgroundDrawableResource(R.drawable.white_card_background)
             }

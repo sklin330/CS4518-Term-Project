@@ -14,8 +14,7 @@ import com.sklin.termproject.dataclass.Flashcard
 
 class PracticeFlashcardViewModel : ViewModel() {
 
-    private val flashcardList = listOf<Flashcard>()
-    private val flashcardLiveList = MutableLiveData(flashcardList)
+    private var flashcardList = listOf<Flashcard>()
     private var flashcardSetId = "-1"
     private var index = 0
     private var isFront = true
@@ -36,9 +35,8 @@ class PracticeFlashcardViewModel : ViewModel() {
         return isFront
     }
 
-    fun getLiveFlashcardList(): LiveData<List<Flashcard>> {
-        fetchFlashcards()
-        return flashcardLiveList
+    fun setFlashcardList(flashcardList: List<Flashcard>) {
+        this.flashcardList = flashcardList
     }
 
     fun getFlashcardList(): List<Flashcard> {
@@ -49,28 +47,5 @@ class PracticeFlashcardViewModel : ViewModel() {
         this.flashcardSetId = id
     }
 
-    private fun fetchFlashcards() {
-        val firebaseDatabase = Firebase.database
-        val databaseReference = firebaseDatabase.getReference("Flashcard").child(flashcardSetId)
-
-        val postListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var list = mutableListOf<Flashcard>()
-                for (flashcardSnapshot in dataSnapshot.children) {
-                    val flashcard = flashcardSnapshot.getValue<Flashcard>()
-                    if (flashcard != null) {
-                        //Log.d(TAG, "fetchFlashcards:onDataChange -> $flashcardSnapshot")
-                        list.add(flashcard)
-                    }
-                }
-                flashcardLiveList.postValue(list)
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                //Log.d(TAG, "fetchFlashcardSets:onCancelled", databaseError.toException())
-            }
-        }
-        databaseReference.addValueEventListener(postListener)
-    }
 
 }
