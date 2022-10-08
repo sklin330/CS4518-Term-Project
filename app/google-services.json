@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "788428292842",
+    "firebase_url": "https://flashcards-to-go-default-rtdb.firebaseio.com",
     "project_id": "flashcards-to-go",
     "storage_bucket": "flashcards-to-go.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "788428292842-7lupqssv69d67m2cfr5hn6ifmp22ag8d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sklin.termproject",
+            "certificate_hash": "8fee46174cf9a8c051699cf41dd2c197dafbb90b"
+          }
+        },
         {
           "client_id": "788428292842-87k123udn0u6p3mnvtrfkn9nuh6cvt4f.apps.googleusercontent.com",
           "client_type": 1,
