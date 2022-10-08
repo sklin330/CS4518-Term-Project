@@ -65,7 +65,7 @@ class AchievementFragment : Fragment() {
 
         achievementLiveData.observe(viewLifecycleOwner) {
             it?.let {
-                achievementAdapter = AchievementAdapter(achievementSource.getAchievementList(), it)
+                achievementAdapter = AchievementAdapter(achievementSource.getAchievementList(), it, context)
                 achievementRecyclerView.adapter = achievementAdapter
             }
         }

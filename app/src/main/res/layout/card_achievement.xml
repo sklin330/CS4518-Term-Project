@@ -28,7 +28,7 @@
                 android:src="@drawable/medal" />
 
             <TextView
-                android:id="@+id/achievment_name_text"
+                android:id="@+id/achievment_points_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"

@@ -43,11 +43,11 @@ class AchievementSource private constructor(
         Achievement("1", "2 Day Login", "Login for 2 days!", 10, 2),
         Achievement("2", "5 Day Login", "Login for 5 days!", 20, 5),
         Achievement("3", "7 Day Login", "Login for 7 days!", 30, 7),
-        Achievement("4", "Create 1 Flashcard Set", "Create a flashcard set", 10, 1),
-        Achievement("5", "Create 5 Flashcard Sets", "Create 5 flashcard sets", 15, 5),
-        Achievement("6", "Create 1 Flashcard", "Create a flashcard", 10, 1),
-        Achievement("7", "Create 5 Flashcards", "Create 5 flashcards", 15, 5),
-        Achievement("8", "Practice 10 Flashcards", "Practice flashcards 10 times", 10, 10),
+        Achievement("4", "Create 1 Flashcard Set", "Create a flashcard set!", 10, 1),
+        Achievement("5", "Create 5 Flashcard Sets", "Create 5 flashcard sets!", 15, 5),
+        Achievement("6", "Create 1 Flashcard", "Create a flashcard!", 10, 1),
+        Achievement("7", "Create 5 Flashcards", "Create 5 flashcards!", 15, 5),
+        Achievement("8", "Practice 10 Flashcards", "Practice flashcards 10 times!", 10, 10),
     )
 
     init {
