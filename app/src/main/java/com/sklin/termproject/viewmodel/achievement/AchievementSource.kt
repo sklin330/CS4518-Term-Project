@@ -23,6 +23,7 @@ import kotlin.collections.HashMap
 
 private const val TAG = "AchievementSource"
 
+@RequiresApi(Build.VERSION_CODES.O)
 class AchievementSource private constructor(
     context: Context,
     userId: String
@@ -49,6 +50,21 @@ class AchievementSource private constructor(
         Achievement("8", "Practice 10 Flashcards", "Practice flashcards 10 times", 10, 10),
     )
 
+    init {
+        val firebaseDatabase = Firebase.database
+
+        firebaseDatabase.getReference("Users").child(userId).get().addOnSuccessListener {
+            Log.i(TAG, "Got user ${it.value}")
+            checkLogin()
+            updateStatsAndAchievements()
+        }.addOnFailureListener{
+            Log.e(TAG, "Error getting data", it)
+        }
+
+        fetchAchievements()
+
+    }
+
     private var achievementMap: HashMap<String, Boolean> = HashMap()
     private val achievementLiveMap = MutableLiveData(achievementMap)
 
@@ -64,12 +80,7 @@ class AchievementSource private constructor(
         return achievementList
     }
 
-    fun getLiveUserData(): LiveData<User> {
-        fetchUserStats()
-        return userLiveData
-    }
-
-    private fun fetchAchievements() {
+    fun fetchAchievements() {
         val firebaseDatabase = Firebase.database
 
         val postListener = object : ValueEventListener {
@@ -88,11 +99,10 @@ class AchievementSource private constructor(
         firebaseDatabase.getReference("Achievements").child(userId).addValueEventListener(postListener)
     }
 
-    private fun fetchUserStats() {
+    fun fetchUserStats() {
         val firebaseDatabase = Firebase.database
 
         val postListener = object : ValueEventListener {
-            @RequiresApi(Build.VERSION_CODES.O)
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue<User>() ?: User(userId, "Guest")
                 Log.d(TAG, "fetchUserStats -> $user")
@@ -102,8 +112,6 @@ class AchievementSource private constructor(
                 numFlashcardSetCreated = user.numFlashcardSetCreated ?: 0
                 numFlashcardCreated = user.numFlashcardCreated ?: 0
                 numFlashcardPracticed = user.numFlashcardPracticed ?: 0
-                checkLogin()
-                updateStatsAndAchievements()
                 userLiveData.postValue(user)
             }
             override fun onCancelled(databaseError: DatabaseError) {
@@ -161,7 +169,6 @@ class AchievementSource private constructor(
             }
         }
 
-        //TODO: how to get username of user
         val updatedUser = User(
             userId,
             username,
@@ -175,6 +182,21 @@ class AchievementSource private constructor(
 
         firebaseDatabase.getReference("Users").child(userId).setValue(updatedUser)
         firebaseDatabase.getReference("Achievements").child(userId).setValue(currAchievementMap)
+    }
+
+    fun incrementNumFlashcardSetCreated() {
+        numFlashcardSetCreated++
+        updateStatsAndAchievements()
+    }
+
+    fun incrementNumFlashcardCreated() {
+        numFlashcardCreated++
+        updateStatsAndAchievements()
+    }
+
+    fun incrementNumFlashcardPracticed() {
+        numFlashcardPracticed++
+        updateStatsAndAchievements()
     }
 
     companion object {

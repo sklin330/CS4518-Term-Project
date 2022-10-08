@@ -2,19 +2,25 @@ package com.sklin.termproject
 
 import android.app.Dialog
 import android.content.Context
+import android.os.Build
 import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.sklin.termproject.dataclass.FlashcardSet
+import com.sklin.termproject.viewmodel.achievement.AchievementSource
 
 class AddFlashcardSetDialog {
 
     private lateinit var dialog: Dialog
     private lateinit var mContext: Context
 
+    private lateinit var achievementSource: AchievementSource
+
+    @RequiresApi(Build.VERSION_CODES.O)
     fun showDialog(context: Context) {
         dialog = Dialog(context)
         mContext = context
@@ -38,9 +44,11 @@ class AddFlashcardSetDialog {
 
                 //TODO: Retrieve User ID
                 val userid = "1"
-
                 databaseReference.child("FlashcardSet").child(userid).child(id)
                     .setValue(newFlashcardSet)
+
+                achievementSource = AchievementSource.getDataSource()
+                achievementSource.incrementNumFlashcardSetCreated()
 
                 dialog.dismiss()
             }

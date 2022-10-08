@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity() {
         //TODO get user id and username here
         var userId = "1"
         AchievementSource.initialize(this, userId)
+        achievementSource = AchievementSource.getDataSource()
+        achievementSource.fetchAchievements()
+        achievementSource.fetchUserStats()
 
         setSupportActionBar(binding.appBarMain.toolbar)
 

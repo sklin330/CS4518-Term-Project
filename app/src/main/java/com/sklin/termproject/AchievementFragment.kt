@@ -70,14 +70,6 @@ class AchievementFragment : Fragment() {
             }
         }
 
-        var userData = achievementSource.getLiveUserData()
-
-        userData.observe(viewLifecycleOwner) {
-            it?.let {
-//                achievementSource.updateStatsAndAchievements()
-            }
-        }
-
         return root
     }
 
