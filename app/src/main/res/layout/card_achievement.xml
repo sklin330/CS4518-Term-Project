@@ -32,6 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textColor="@color/app_black"
                 tools:text="2-Day Login" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

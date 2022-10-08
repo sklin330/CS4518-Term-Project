@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/app_background">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -27,7 +28,7 @@
         android:id="@+id/cardView3"
         android:layout_width="493dp"
         android:layout_height="251dp"
-        app:cardBackgroundColor="@color/light_green"
+        app:cardBackgroundColor="@color/primary_light"
         app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +62,9 @@
                     android:layout_marginBottom="5dp"
                     android:autofillHints="term"
                     android:hint="@string/term_hint"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textColor="@color/app_black"
+                    android:textColorHint="@color/app_black_hint" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <View
@@ -91,7 +94,9 @@
                     android:layout_marginBottom="5dp"
                     android:autofillHints="term"
                     android:hint="@string/definition_hint"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textColor="@color/app_black"
+                    android:textColorHint="@color/app_black_hint" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -107,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:background="@color/light_green"
+                    android:background="@color/primary_light"
                     android:contentDescription="@string/audio_desc"
                     android:src="@drawable/ic_volume_foreground" />
 
@@ -116,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:background="@color/light_green"
+                    android:background="@color/primary_light"
                     android:contentDescription="@string/desc_mic"
                     android:src="@drawable/ic_mic_foreground" />
             </LinearLayout>

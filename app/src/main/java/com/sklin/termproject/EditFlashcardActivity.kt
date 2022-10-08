@@ -10,6 +10,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.sklin.termproject.adapter.EXTRA_SET_ID
@@ -94,6 +96,10 @@ class EditFlashcardActivity : AppCompatActivity() {
                 try {
                     recorder.prepare()
                     recorder.start()
+
+                    binding.recordButton.setColorFilter(resources.getColor(android.R.color.holo_red_light))
+                    binding.audioButton.alpha = 0.3f
+                    binding.audioButton.isEnabled = false
                 }
                 catch(e: IOException) {
                     throw IllegalArgumentException(e)
@@ -111,9 +117,14 @@ class EditFlashcardActivity : AppCompatActivity() {
                 recorder.release()
                 viewModel.setAudioPath(viewModel.getAudioPath())
                 recording = true
+                binding.recordButton.colorFilter = null
+                binding.audioButton.alpha = 1f
+                binding.audioButton.isEnabled = true
             }
-
         }
+
+        binding.audioButton.isEnabled = viewModel.getAudioPath() != ""
+        binding.audioButton.alpha = if (viewModel.getAudioPath() != "") 1f else 0.3f
 
         binding.audioButton.setOnClickListener{
             if(listening){
@@ -149,6 +160,25 @@ class EditFlashcardActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.empty, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(this, FlashcardListActivity::class.java)
+                intent.apply {
+                    putExtra(EXTRA_TITLE, viewModel.getSetTitle())
+                    putExtra(EXTRA_SET_ID, viewModel.getSetId())
+                }
+                startActivity(intent)
+            }
+        }
+        return true
     }
 
     private fun checkPermissions(): Boolean {

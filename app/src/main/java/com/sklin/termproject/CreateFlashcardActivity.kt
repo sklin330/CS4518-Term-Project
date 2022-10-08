@@ -90,6 +90,9 @@ class CreateFlashcardActivity : AppCompatActivity() {
                 try {
                     recorder.prepare()
                     recorder.start()
+                    binding.recordButton.setColorFilter(resources.getColor(android.R.color.holo_red_light))
+                    binding.audioButton.alpha = 0.3f
+                    binding.audioButton.isEnabled = false
                 }
                 catch(e:IOException) {
                     throw IllegalArgumentException(e)
@@ -107,9 +110,15 @@ class CreateFlashcardActivity : AppCompatActivity() {
                 recorder.release()
                 viewModel.setAudioPath(audioFilePath!!)
                 recording = true
+                binding.recordButton.colorFilter = null
+                binding.audioButton.alpha = 1f
+                binding.audioButton.isEnabled = true
             }
 
         }
+
+        binding.audioButton.isEnabled = viewModel.getAudioPath() != ""
+        binding.audioButton.alpha = if (viewModel.getAudioPath() != "") 1f else 0.3f
 
         binding.audioButton.setOnClickListener{
             if(listening){
