@@ -1,10 +1,14 @@
 package com.sklin.termproject
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.sklin.termproject.adapter.EXTRA_SET_ID
 import com.sklin.termproject.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
@@ -20,8 +24,9 @@ class SettingsFragment : Fragment() {
         val root: View = binding.root
 
         binding.signOutButton.setOnClickListener {
-            //Log out of firebase authentication
-            //Navigate user back to login page
+            Firebase.auth.signOut()
+            val intent = Intent(context, LoginActivity::class.java)
+            context?.startActivity(intent)
         }
 
         return root
