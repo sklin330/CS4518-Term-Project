@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_flashcard_set_list, R.id.nav_achievement
+                R.id.nav_flashcard_set_list, R.id.nav_achievement, R.id.nav_settings
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

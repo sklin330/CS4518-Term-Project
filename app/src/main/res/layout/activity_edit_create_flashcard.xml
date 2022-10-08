@@ -139,6 +139,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/flashcard_background"
         android:text="@string/submit_edit_card"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

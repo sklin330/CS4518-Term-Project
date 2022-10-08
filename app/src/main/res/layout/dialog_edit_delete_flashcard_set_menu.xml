@@ -5,6 +5,13 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/practice_button"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:text="@string/practice_text"
+        android:textColor="@color/white" />
+
+    <Button
         android:id="@+id/edit_button"
         android:layout_width="match_parent"
         android:layout_height="75dp"

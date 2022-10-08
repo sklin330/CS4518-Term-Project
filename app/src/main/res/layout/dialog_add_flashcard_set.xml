@@ -36,7 +36,8 @@
         android:id="@+id/create_button"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:text="@string/create_text" />
+        android:text="@string/create_text"
+        android:textColor="@color/white" />
 
 </LinearLayout>
 

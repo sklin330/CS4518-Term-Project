@@ -18,4 +18,10 @@
         android:label="@string/menu_achievement"
         tools:layout="@layout/fragment_achievement" />
 
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.sklin.termproject.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
+
 </navigation>
