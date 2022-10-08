@@ -21,6 +21,9 @@
     <string name="add_flashcard_description">Give a title to your flashcard set</string>
     <string name="create_text">Create</string>
 
+    <string name="edit_text">Edit</string>
+    <string name="delete_text">Delete</string>
+
     <string name="leaderboard_title">Leaderboard</string>
     <string name="achievement_title">Achievements</string>
 

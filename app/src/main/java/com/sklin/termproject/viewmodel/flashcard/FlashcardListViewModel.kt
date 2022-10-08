@@ -34,10 +34,6 @@ class FlashcardListViewModel : ViewModel() {
         this.flashcardSetId = id
     }
 
-    fun getFlashcardSetId(): String {
-        return flashcardSetId
-    }
-
     private fun fetchFlashcards() {
         val firebaseDatabase = Firebase.database
         val databaseReference = firebaseDatabase.getReference("Flashcard").child(flashcardSetId)
@@ -60,5 +56,16 @@ class FlashcardListViewModel : ViewModel() {
             }
         }
         databaseReference.addValueEventListener(postListener)
+    }
+
+    fun persistFlashcard(front: String, back: String, audioPath: String) {
+        val firebaseDatabase = Firebase.database
+        val databaseReference = firebaseDatabase.reference
+        val id = databaseReference.push().key ?: ""
+
+        val newFlashcard = Flashcard(id, front, back, audioPath)
+
+        databaseReference.child("Flashcard").child(flashcardSetId).child(id)
+            .setValue(newFlashcard)
     }
 }
