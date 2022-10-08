@@ -1,10 +1,12 @@
 package com.sklin.termproject
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +15,7 @@ import com.sklin.termproject.adapter.EXTRA_SET_ID
 import com.sklin.termproject.adapter.EXTRA_TITLE
 import com.sklin.termproject.adapter.FlashcardAdapter
 import com.sklin.termproject.databinding.ActivityFlashcardListBinding
+import com.sklin.termproject.viewmodel.achievement.AchievementSource
 import com.sklin.termproject.viewmodel.flashcard.FlashcardListViewModel
 
 const val REQUEST_CODE_CREATE = 2
@@ -79,11 +82,15 @@ class FlashcardListActivity : AppCompatActivity() {
                 val intent = Intent(this, CreateFlashcardActivity::class.java)
                 startActivityForResult(intent, REQUEST_CODE_CREATE)
             }
-            android.R.id.home -> { finish() }
+            android.R.id.home -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
         }
         return true
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -94,6 +101,7 @@ class FlashcardListActivity : AppCompatActivity() {
 
             if (front != null && back != null) {
                 viewModel.persistFlashcard("", front, back, audioPath)
+                AchievementSource.getDataSource().incrementNumFlashcardCreated()
             }
             return
         }
