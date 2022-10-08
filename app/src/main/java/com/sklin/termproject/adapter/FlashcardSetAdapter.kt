@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sklin.termproject.FlashcardListActivity
+import com.sklin.termproject.PracticeFlashcardActivity
 import com.sklin.termproject.R
 import com.sklin.termproject.dataclass.FlashcardSet
 
@@ -28,9 +29,8 @@ class FlashcardSetAdapter (private val data: List<FlashcardSet>, private val con
             this.flashcardSet = flashcardSet
             title.text = this.flashcardSet.title
             card.setOnClickListener {
-                val intent = Intent(context, FlashcardListActivity::class.java)
-                intent.putExtra(EXTRA_TITLE, title.text)
-                intent.putExtra(EXTRA_ID, flashcardSet.id)
+                val intent = Intent(context, PracticeFlashcardActivity::class.java)
+                intent.putExtra("flashcardSet", flashcardSet)
                 context?.startActivity(intent);
             }
         }

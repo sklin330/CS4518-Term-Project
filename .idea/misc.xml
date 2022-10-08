@@ -7,7 +7,7 @@
         <entry key="app/src/main/res/drawable/white_card_background.xml" value="0.142" />
         <entry key="app/src/main/res/layout-land/activity_edit_create_flashcard.xml" value="0.25220458553791886" />
         <entry key="app/src/main/res/layout-land/activity_login.xml" value="0.25132275132275134" />
-        <entry key="app/src/main/res/layout-land/activity_practice_flashcard.xml" value="0.25132275132275134" />
+        <entry key="app/src/main/res/layout-land/activity_practice_flashcard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_create_flashcard.xml" value="0.153125" />
         <entry key="app/src/main/res/layout/activity_edit_create_flashcard.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/activity_flashcard_list.xml" value="0.1109375" />

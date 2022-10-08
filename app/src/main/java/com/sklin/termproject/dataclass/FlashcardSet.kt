@@ -1,3 +1,5 @@
 package com.sklin.termproject.dataclass
 
-data class FlashcardSet(var id: String? = "", var title: String? = "")
+import java.io.Serializable
+
+data class FlashcardSet(var id: String? = "", var title: String? = ""): Serializable
