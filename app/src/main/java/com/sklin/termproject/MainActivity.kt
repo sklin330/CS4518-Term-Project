@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //TODO get user id here
+        //TODO get user id and username here
         var userId = "1"
         AchievementSource.initialize(this, userId)
 

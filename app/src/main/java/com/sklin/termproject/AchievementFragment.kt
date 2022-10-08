@@ -41,9 +41,7 @@ class AchievementFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(AchievementViewModel::class.java)
 
-        val userid = "1"
         achievementSource = AchievementSource.getDataSource()
-        achievementSource.setUserId(userid)
 
         //Set up recycler view for leaderboard
         leaderboardRecyclerView = binding.leaderboardRecyclerView
@@ -62,8 +60,6 @@ class AchievementFragment : Fragment() {
         //Set up recycler view for achievements
         achievementRecyclerView = binding.achievementRecyclerView
         achievementRecyclerView.layoutManager = GridLayoutManager(activity, 3)
-//        achievementAdapter = AchievementAdapter(achievementSource.getAchievementList(), )
-//        achievementRecyclerView.adapter = achievementAdapter
 
         val achievementLiveData = achievementSource.getLiveAchievementMap()
 
@@ -78,7 +74,7 @@ class AchievementFragment : Fragment() {
 
         userData.observe(viewLifecycleOwner) {
             it?.let {
-                achievementSource.checkLogin()
+//                achievementSource.updateStatsAndAchievements()
             }
         }
 

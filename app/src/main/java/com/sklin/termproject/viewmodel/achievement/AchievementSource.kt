@@ -29,6 +29,7 @@ class AchievementSource private constructor(
 ) {
 
     private var userId: String = userId
+    private var username: String = ""
 
     private var lastLoggedIn = "2022-01-01"
     private var numDaysLoggedIn = 0
@@ -68,16 +69,13 @@ class AchievementSource private constructor(
         return userLiveData
     }
 
-    fun setUserId(userId: String) {
-        this.userId = userId
-    }
-
     private fun fetchAchievements() {
         val firebaseDatabase = Firebase.database
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var map = dataSnapshot.getValue<HashMap<String, Boolean>>()
+                Log.d(TAG, "fetchAchievements -> $map")
                 if (map == null) {
                     map = initAchievementsMap()
                 }
@@ -94,8 +92,18 @@ class AchievementSource private constructor(
         val firebaseDatabase = Firebase.database
 
         val postListener = object : ValueEventListener {
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val user = dataSnapshot.getValue<User>() ?: User(userId, "USERNAME")
+                val user = dataSnapshot.getValue<User>() ?: User(userId, "Guest")
+                Log.d(TAG, "fetchUserStats -> $user")
+                username = user.username.toString()
+                lastLoggedIn = user.lastLoggedInDate.toString()
+                numDaysLoggedIn = user.numDaysLoggedIn ?: 0
+                numFlashcardSetCreated = user.numFlashcardSetCreated ?: 0
+                numFlashcardCreated = user.numFlashcardCreated ?: 0
+                numFlashcardPracticed = user.numFlashcardPracticed ?: 0
+                checkLogin()
+                updateStatsAndAchievements()
                 userLiveData.postValue(user)
             }
             override fun onCancelled(databaseError: DatabaseError) {
@@ -126,11 +134,10 @@ class AchievementSource private constructor(
         if(days > 0) {
             numDaysLoggedIn += 1
             lastLoggedIn = currDateStr
-            updateStatsAndAchievements()
         }
     }
 
-    private fun updateStatsAndAchievements() {
+    fun updateStatsAndAchievements() {
         val firebaseDatabase = Firebase.database
 
         val currAchievementMap = HashMap<String, Boolean>()
@@ -157,7 +164,7 @@ class AchievementSource private constructor(
         //TODO: how to get username of user
         val updatedUser = User(
             userId,
-            userLiveData.value?.username,
+            username,
             sumPoints,
             lastLoggedIn,
             numDaysLoggedIn,
