@@ -12,6 +12,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.sklin.termproject.databinding.ActivityMainBinding
 import com.sklin.termproject.viewmodel.achievement.AchievementSource
 
@@ -31,9 +33,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //TODO get user id and username here
-        var userId = "1"
-        AchievementSource.initialize(this, userId)
+        var userId = Firebase.auth.currentUser?.uid
+        if (userId != null) {
+            AchievementSource.initialize(this, userId)
+        }
         achievementSource = AchievementSource.getDataSource()
         achievementSource.fetchAchievements()
         achievementSource.fetchUserStats()

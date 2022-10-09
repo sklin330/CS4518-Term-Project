@@ -1,11 +1,15 @@
 package com.sklin.termproject
 
+import android.content.ClipData.newIntent
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
@@ -16,12 +20,17 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.sklin.termproject.databinding.ActivityLoginBinding
+import com.sklin.termproject.viewmodel.achievement.AchievementViewModel
+import com.sklin.termproject.viewmodel.flashcard.FlashcardSetListViewModel
+import com.sklin.termproject.viewmodel.login.LoginViewModel
+
 
 private const val REQ_ONE_TAP: Int = 1
 private const val TAG = "LOGIN"
 
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var viewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
     private lateinit var signInButton: SignInButton
     private lateinit var oneTapClient: SignInClient
@@ -34,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = Firebase.auth
         signInButton = findViewById(R.id.sign_in_button)
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         oneTapClient = Identity.getSignInClient(this)
         signInRequest = BeginSignInRequest.builder()
@@ -86,6 +96,7 @@ class LoginActivity : AppCompatActivity() {
                                         val user = auth.currentUser
                                         Intent(this, MainActivity::class.java).also {
                                             startActivity(it)
+                                            intent.putExtra("id", googleCredential.id)
                                         }
                                     } else {
                                         Log.w(TAG, "signInWithCredential:failure", task.exception)
