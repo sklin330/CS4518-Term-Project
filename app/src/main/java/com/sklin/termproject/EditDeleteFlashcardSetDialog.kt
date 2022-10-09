@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Button
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
@@ -19,6 +20,8 @@ import com.sklin.termproject.dataclass.Flashcard
 import com.sklin.termproject.dataclass.FlashcardList
 import com.sklin.termproject.dataclass.FlashcardSet
 import com.sklin.termproject.viewmodel.achievement.AchievementSource
+
+private const val TAG = "EditDeleteFlashcardSetDialog"
 
 class EditDeleteFlashcardSetDialog {
 
@@ -48,19 +51,25 @@ class EditDeleteFlashcardSetDialog {
                     for (flashcardSnapshot in it.children) {
                         val flashcard = flashcardSnapshot.getValue<Flashcard>()
                         if (flashcard != null) {
-                            //Log.d(TAG, "fetchFlashcards:onDataChange -> $flashcardSnapshot")
                             list.add(flashcard)
                         }
                     }
-                    val flashcards = FlashcardList(list.toList())
-                    val intent = Intent(context, PracticeFlashcardActivity::class.java)
-                    intent.putExtra(EXTRA_SET_ID, flashcards)
-                    dialog.dismiss()
-                    val achievementSource = AchievementSource.getDataSource()
-                    achievementSource.incrementNumFlashcardPracticed()
-                    context?.startActivity(intent)
+                    if (list.size > 0) {
+                        val flashcards = FlashcardList(list.toList())
+                        val intent = Intent(context, PracticeFlashcardActivity::class.java)
+                        intent.putExtra(EXTRA_SET_ID, flashcards)
+                        dialog.dismiss()
+                        val achievementSource = AchievementSource.getDataSource()
+                        achievementSource.incrementNumFlashcardPracticed()
+                        context?.startActivity(intent)
+                    } else {
+                        dialog.dismiss()
+                        val message = "Add a flashcard to this set to practice!"
+                        Toast.makeText(this.mContext, message, Toast.LENGTH_SHORT).show()
+                    }
+
                 }.addOnFailureListener{
-                    Log.e("EditDeleteFlashcardSetDialog", "Error getting data", it)
+                    Log.e(TAG, "Error getting data", it)
                 }
             }
         }
@@ -76,8 +85,10 @@ class EditDeleteFlashcardSetDialog {
             val userid = Firebase.auth.currentUser?.uid
             val firebaseDatabase = Firebase.database
             if (userid != null) {
-                firebaseDatabase.getReference("FlashcardSet")
-                    .child(userid).removeValue()
+                flashcardSet.id?.let { it1 ->
+                    firebaseDatabase.getReference("FlashcardSet")
+                        .child(userid).child(it1).removeValue()
+                }
             }
             dialog.dismiss()
         }

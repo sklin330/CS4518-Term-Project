@@ -23,11 +23,9 @@ class SettingsFragment : Fragment() {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.signOutButton.setOnClickListener {
-            Firebase.auth.signOut()
-            val intent = Intent(context, LoginActivity::class.java)
-            context?.startActivity(intent)
-        }
+        Firebase.auth.signOut()
+        val intent = Intent(context, LoginActivity::class.java)
+        context?.startActivity(intent)
 
         return root
     }
