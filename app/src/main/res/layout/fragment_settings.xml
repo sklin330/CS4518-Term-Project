@@ -10,13 +10,5 @@
         android:layout_height="match_parent"
         android:background="@color/app_background"
         android:orientation="vertical"
-        android:padding="20dp">
-
-        <Button
-            android:id="@+id/sign_out_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/menu_logout"
-            android:textColor="@color/white" />
-    </LinearLayout>
+        android:padding="20dp"/>
 </FrameLayout>

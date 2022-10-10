@@ -8,9 +8,12 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.sklin.termproject.dataclass.FlashcardSet
+import com.sklin.termproject.viewmodel.login.LoginViewModel
 import com.sklin.termproject.viewmodel.achievement.AchievementSource
 
 class AddFlashcardSetDialog {
@@ -42,10 +45,12 @@ class AddFlashcardSetDialog {
                 val title = titleEditTextView.text.toString()
                 val newFlashcardSet = FlashcardSet(id, title)
 
-                //TODO: Retrieve User ID
-                val userid = "1"
-                databaseReference.child("FlashcardSet").child(userid).child(id)
-                    .setValue(newFlashcardSet)
+                val userid = Firebase.auth.currentUser?.uid
+
+                if (userid != null) {
+                    databaseReference.child("FlashcardSet").child(userid).child(id)
+                        .setValue(newFlashcardSet)
+                }
 
                 achievementSource = AchievementSource.getDataSource()
                 achievementSource.incrementNumFlashcardSetCreated()

@@ -26,7 +26,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+        android:id="@+id/practice_flashcard"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/primary_light"
@@ -127,6 +127,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+        app:layout_constraintTop_toBottomOf="@+id/practice_flashcard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
