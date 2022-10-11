@@ -8,6 +8,7 @@ import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -73,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener(this) { e ->
+                    Toast.makeText(this, "You must be signed into a Google account first", Toast.LENGTH_LONG).show()
                     Log.d(TAG, e.localizedMessage)
                 }
         }

@@ -48,7 +48,7 @@ class AchievementViewModel : ViewModel() {
                         list.add(user)
                     }
                 }
-                list.sortedWith(compareBy { it.totalPoints })
+                list.sortByDescending { it.totalPoints }
                 userLiveList.postValue(list)
             }
 

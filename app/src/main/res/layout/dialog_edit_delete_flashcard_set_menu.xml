@@ -11,6 +11,7 @@
         android:layout_gravity="center"
         android:text="@string/actions_dialog"
         android:textAlignment="center"
+        android:textColor="@color/app_black"
         android:textSize="20sp" />
 
     <Button

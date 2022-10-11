@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.sklin.termproject.adapter.EXTRA_SET_ID
@@ -60,10 +61,6 @@ class PracticeFlashcardActivity : AppCompatActivity() {
             }
         }
 
-        var currentFlashcard: Flashcard = viewModel.getFlashcardList().get(viewModel.getIndex())
-        binding.audioButton.isEnabled = currentFlashcard.audioPath != ""
-        binding.audioButton.alpha = if (currentFlashcard.audioPath != "") 1f else 0.3f
-
         binding.audioButton.setOnClickListener {
             var currentFlashcard: Flashcard = viewModel.getFlashcardList().get(viewModel.getIndex())
             mediaPlayer = MediaPlayer()
@@ -75,18 +72,24 @@ class PracticeFlashcardActivity : AppCompatActivity() {
     }
 
     private fun updateFlashcard() {
+        viewModel.setIsFront(true)
+        binding.audioButton.visibility = View.INVISIBLE
         var currentFlashcard: Flashcard = viewModel.getFlashcardList().get(viewModel.getIndex())
         binding.flashcardText.text = currentFlashcard.front
         binding.progressTextView.text = "${(viewModel.getIndex() + 1)} / ${viewModel.getFlashcardList().size}"
         binding.practiceFlashcard.setOnClickListener {
             if (viewModel.getIsFront()) {
                 binding.flashcardText.text = currentFlashcard.back
+                binding.audioButton.visibility = View.VISIBLE
                 viewModel.setIsFront(false)
             } else {
                 binding.flashcardText.text = currentFlashcard.front
+                binding.audioButton.visibility = View.INVISIBLE
                 viewModel.setIsFront(true)
             }
         }
+        binding.audioButton.isEnabled = currentFlashcard.audioPath != ""
+        binding.audioButton.alpha = if (currentFlashcard.audioPath != "") 1f else 0.3f
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
